@@ -4,9 +4,6 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 5a0c4dee-33bd-11eb-23e9-1f1c06642ab7
-using Markdown
-
 # ╔═╡ b2be34fc-33ba-11eb-326a-d38bb19a454c
 using Test
 
@@ -282,7 +279,6 @@ md"### Result"
 reduce(*, findEntriesThatSum(2020, puzzleInput, 3))
 
 # ╔═╡ Cell order:
-# ╠═5a0c4dee-33bd-11eb-23e9-1f1c06642ab7
 # ╠═b2be34fc-33ba-11eb-326a-d38bb19a454c
 # ╠═650d3f9c-33e6-11eb-1669-53e0450d7c85
 # ╠═5a9d7804-33bb-11eb-020f-6302eafcbcee
