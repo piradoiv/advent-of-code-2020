@@ -1,1 +1,1 @@
-puzzleToNumericArray(input) = map(x -> parse(Int64, x), split(input, "\n"))
+puzzleToNumericArray(input) = map(x -> parse(Int64, x), split(strip(input), "\n"))
