@@ -1,5 +1,7 @@
 # advent-of-code-2020
-Advent of Code 2020 with Julia and Pluto.jl
+Advent of Code 2020 solutions with [Julia](https://julialang.org/) and [Pluto.jl](https://github.com/fonsp/Pluto.jl). Spoiler alert!
+
+![Advent of Code 2020 with Julia and Pluto.jl](screenshot.png)
 
 ## How to use this repository
 1. Install [Julia](https://julialang.org/)
