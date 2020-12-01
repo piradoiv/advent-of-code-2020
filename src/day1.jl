@@ -13,6 +13,14 @@ using Combinatorics
 # ╔═╡ f4d053d4-340f-11eb-0285-b1f852cfc4f5
 include("common.jl")
 
+# ╔═╡ 10e2b764-3416-11eb-15d5-83cfd13f60cb
+md"# Day 1 - Report Repair
+
+Please find the full Advent of Code instructions for this challenge at:"
+
+# ╔═╡ ccbe7928-3416-11eb-14e7-3ffa88e222c8
+md"[https://adventofcode.com/2020/day/1](https://adventofcode.com/2020/day/1)"
+
 # ╔═╡ 5fde7a1e-33bd-11eb-0f82-1dc272f1acda
 md"## Part One"
 
@@ -83,6 +91,8 @@ reduce(*, findEntriesThatSum(2020, puzzleInput, 3))
 # ╠═f4d053d4-340f-11eb-0285-b1f852cfc4f5
 # ╠═648feaae-3410-11eb-2b30-4d3bb934f247
 # ╠═650d3f9c-33e6-11eb-1669-53e0450d7c85
+# ╟─10e2b764-3416-11eb-15d5-83cfd13f60cb
+# ╟─ccbe7928-3416-11eb-14e7-3ffa88e222c8
 # ╟─5fde7a1e-33bd-11eb-0f82-1dc272f1acda
 # ╟─e7ea5964-33ea-11eb-20e5-9585e0e80e21
 # ╠═d0af2c46-33ba-11eb-372f-357ab6dc9a29
