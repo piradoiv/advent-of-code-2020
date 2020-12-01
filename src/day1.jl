@@ -71,7 +71,7 @@ md"Using the above example again, the three entries that sum to `2020` are `979`
 md"### Result"
 
 # ╔═╡ 202fb894-33bd-11eb-0232-bb0f06888f13
-puzzleInput = puzzleToNumericArray(open(f -> read(f, String), "day1-input.txt"))
+puzzleInput = open(f -> read(f, String), "day1-input.txt") |> puzzleToNumericArray
 
 # ╔═╡ 2d9467c6-33bd-11eb-255c-15cca08b8489
 reduce(*, findEntriesThatSum(2020, puzzleInput))
@@ -101,4 +101,4 @@ reduce(*, findEntriesThatSum(2020, puzzleInput, 3))
 # ╠═c260efae-33eb-11eb-22b5-590a6c3c0df8
 # ╟─dcf00e68-33eb-11eb-1801-9be72f52ccc1
 # ╠═3d8e224c-33be-11eb-2ca5-c72ce0c7e25d
-# ╠═202fb894-33bd-11eb-0232-bb0f06888f13
+# ╟─202fb894-33bd-11eb-0232-bb0f06888f13
