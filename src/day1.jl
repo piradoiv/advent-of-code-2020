@@ -52,7 +52,7 @@ testInput = puzzleToNumericArray("1721
 @test findEntriesThatSum(2020, testInput) == [1721, 299]
 
 # ╔═╡ 938a57fa-33ec-11eb-108d-199dbc72d0a0
-@test reduce(*, findEntriesThatSum(2020, testInput)) == 514579
+@test prod(findEntriesThatSum(2020, testInput)) == 514579
 
 # ╔═╡ 6ab8aeae-33eb-11eb-2d78-c9f339174f35
 md"### Result"
@@ -73,7 +73,7 @@ md"Using the above example again, the three entries that sum to `2020` are `979`
 @test findEntriesThatSum(2020, testInput, 3) == [979, 366, 675]
 
 # ╔═╡ c260efae-33eb-11eb-22b5-590a6c3c0df8
-@test reduce(*, findEntriesThatSum(2020, testInput, 3)) == 241861950
+@test prod(findEntriesThatSum(2020, testInput, 3)) == 241861950
 
 # ╔═╡ dcf00e68-33eb-11eb-1801-9be72f52ccc1
 md"### Result"
@@ -82,10 +82,10 @@ md"### Result"
 puzzleInput = open(f -> read(f, String), "day1-input.txt") |> puzzleToNumericArray
 
 # ╔═╡ 2d9467c6-33bd-11eb-255c-15cca08b8489
-reduce(*, findEntriesThatSum(2020, puzzleInput))
+findEntriesThatSum(2020, puzzleInput) |> prod
 
 # ╔═╡ 3d8e224c-33be-11eb-2ca5-c72ce0c7e25d
-reduce(*, findEntriesThatSum(2020, puzzleInput, 3))
+findEntriesThatSum(2020, puzzleInput, 3) |> prod
 
 # ╔═╡ Cell order:
 # ╠═f4d053d4-340f-11eb-0285-b1f852cfc4f5
@@ -103,7 +103,7 @@ reduce(*, findEntriesThatSum(2020, puzzleInput, 3))
 # ╠═938a57fa-33ec-11eb-108d-199dbc72d0a0
 # ╟─6ab8aeae-33eb-11eb-2d78-c9f339174f35
 # ╠═2d9467c6-33bd-11eb-255c-15cca08b8489
-# ╟─d3c0f4d4-33bd-11eb-3be3-fbb3d237c905
+# ╠═d3c0f4d4-33bd-11eb-3be3-fbb3d237c905
 # ╟─9c905eb8-33eb-11eb-0f36-016fe88a648e
 # ╟─a78a48a6-33eb-11eb-0f5e-a3a376574fb2
 # ╟─ac954c4a-33eb-11eb-00bb-69919ae91aa8
