@@ -4,14 +4,14 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ b2be34fc-33ba-11eb-326a-d38bb19a454c
+# ╔═╡ 648feaae-3410-11eb-2b30-4d3bb934f247
 using Test
 
 # ╔═╡ 650d3f9c-33e6-11eb-1669-53e0450d7c85
 using Combinatorics
 
-# ╔═╡ 5a9d7804-33bb-11eb-020f-6302eafcbcee
-puzzleToNumericArray(input) = map(x -> parse(Int64, x), split(input, "\n"))
+# ╔═╡ f4d053d4-340f-11eb-0285-b1f852cfc4f5
+include("common.jl")
 
 # ╔═╡ 5fde7a1e-33bd-11eb-0f82-1dc272f1acda
 md"## Part One"
@@ -279,9 +279,9 @@ reduce(*, findEntriesThatSum(2020, puzzleInput))
 reduce(*, findEntriesThatSum(2020, puzzleInput, 3))
 
 # ╔═╡ Cell order:
-# ╠═b2be34fc-33ba-11eb-326a-d38bb19a454c
+# ╠═f4d053d4-340f-11eb-0285-b1f852cfc4f5
+# ╠═648feaae-3410-11eb-2b30-4d3bb934f247
 # ╠═650d3f9c-33e6-11eb-1669-53e0450d7c85
-# ╠═5a9d7804-33bb-11eb-020f-6302eafcbcee
 # ╟─5fde7a1e-33bd-11eb-0f82-1dc272f1acda
 # ╟─e7ea5964-33ea-11eb-20e5-9585e0e80e21
 # ╠═d0af2c46-33ba-11eb-372f-357ab6dc9a29
