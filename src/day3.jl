@@ -17,14 +17,19 @@ getCellAt(grid, x, y) = grid[y + 1][(x % length(grid[1])) + 1]
 
 # ╔═╡ ad3c332a-3596-11eb-1514-512617feb224
 function walk(grid, stepsX, stepsY)
-	pos = [0, 0]
+	xy = [0, 0]
 	chars = ""
-	while pos[2] + 1 <= length(grid) - 1
-		pos += [stepsX, stepsY]
-		chars = string(chars, getCellAt(grid, pos[1], pos[2]))
+	while xy[2] + 1 <= length(grid) - 1
+		xy += [stepsX, stepsY]
+		chars = string(chars, getCellAt(grid, xy[1], xy[2]))
 	end
 	return chars
 end
+
+# ╔═╡ 8bf60c5a-359f-11eb-2b4a-836d14382c7d
+treesEncountered(grid, stepsX, stepsY) = walk(grid, stepsX, stepsY) |>
+										 x->findall(c->c == '#', x) |>
+										 length
 
 # ╔═╡ 276dd4ae-359d-11eb-1034-af569084528d
 md"## Tests"
@@ -76,15 +81,13 @@ What do you get if you multiply together the number of trees encountered on each
 # ╔═╡ 6e98900e-3597-11eb-3a8c-83f741c63ad1
 puzzleInput = open(f -> read(f, String), "day3-input.txt") |> x->split(strip(x), "\n")
 
-# ╔═╡ 78645d4a-3597-11eb-04d2-37aeb401d9e7
-walk(puzzleInput, 3, 1) |> x -> findall(c -> c == '#', x) |> length
+# ╔═╡ abd3616c-359f-11eb-00ed-130f3e2eb233
+treesEncountered(puzzleInput, 3, 1)
 
 # ╔═╡ b2446314-3597-11eb-05ff-cbad1dc889ff
 begin
 	[[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]] |>
-	slopes -> map(s -> walk(puzzleInput, s[1], s[2]), slopes) |>
-	walks -> map(x-> findall(c->c == '#', x), walks) |>
-	trees -> map(length, trees) |>
+	slopes->map(s->treesEncountered(puzzleInput, s[1], s[2]), slopes) |>
 	prod
 end
 
@@ -93,6 +96,7 @@ end
 # ╟─c6bc401e-359c-11eb-1f6e-ad285140b5ff
 # ╠═978f03b0-358f-11eb-3125-2bd1fa5c4e05
 # ╠═ad3c332a-3596-11eb-1514-512617feb224
+# ╠═8bf60c5a-359f-11eb-2b4a-836d14382c7d
 # ╟─276dd4ae-359d-11eb-1034-af569084528d
 # ╟─67d7fdca-358f-11eb-20a7-fb80acece997
 # ╠═99e62d1a-359b-11eb-04cc-8ba3d5016eb6
@@ -101,7 +105,7 @@ end
 # ╠═4d759288-3596-11eb-1fbd-67e9a57fd008
 # ╠═50b98fee-3596-11eb-112e-9900696ce9b9
 # ╟─11bad92c-359d-11eb-11de-5509008873e5
-# ╠═78645d4a-3597-11eb-04d2-37aeb401d9e7
+# ╠═abd3616c-359f-11eb-00ed-130f3e2eb233
 # ╟─19d479ba-359d-11eb-37f0-65c9ef2c6137
 # ╠═b2446314-3597-11eb-05ff-cbad1dc889ff
 # ╟─6e98900e-3597-11eb-3a8c-83f741c63ad1
