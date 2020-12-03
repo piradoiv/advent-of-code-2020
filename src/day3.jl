@@ -7,6 +7,28 @@ using InteractiveUtils
 # ╔═╡ 75a3a4b0-3590-11eb-0bf6-775e16dbd22d
 using Test
 
+# ╔═╡ c6bc401e-359c-11eb-1f6e-ad285140b5ff
+md"# Day 3 - Toboggan Trajectory
+Please find the full Advent of Code instructions for this challenge at:    
+[https://adventofcode.com/2020/day/3](https://adventofcode.com/2020/day/3)"
+
+# ╔═╡ 978f03b0-358f-11eb-3125-2bd1fa5c4e05
+getCellAt(grid, x, y) = grid[y + 1][(x % length(grid[1])) + 1]
+
+# ╔═╡ ad3c332a-3596-11eb-1514-512617feb224
+function walk(grid, stepsX, stepsY)
+	pos = [0, 0]
+	chars = ""
+	while pos[2] + 1 <= length(grid) - 1
+		pos += [stepsX, stepsY]
+		chars = string(chars, getCellAt(grid, pos[1], pos[2]))
+	end
+	return chars
+end
+
+# ╔═╡ 276dd4ae-359d-11eb-1034-af569084528d
+md"## Tests"
+
 # ╔═╡ 67d7fdca-358f-11eb-20a7-fb80acece997
 testInput = split("..##.......
 #...#...#..
@@ -20,25 +42,8 @@ testInput = split("..##.......
 #...##....#
 .#..#...#.#", "\n")
 
-# ╔═╡ 978f03b0-358f-11eb-3125-2bd1fa5c4e05
-getCellAt(grid, x, y) = grid[y + 1][1 + (x % length(grid[1]))]
-
-# ╔═╡ ad3c332a-3596-11eb-1514-512617feb224
-function getWalkTrees(grid, stepsX, stepsY)
-	x = 0
-	y = 0
-	chars = ""
-	maxY = length(grid) - 1
-	while y <= maxY - 1
-		x += stepsX
-		y += stepsY
-		chars = string(chars, getCellAt(grid, x, y))
-	end
-	return chars
-end
-
 # ╔═╡ 99e62d1a-359b-11eb-04cc-8ba3d5016eb6
-[3, 1] |> s->getWalkTrees(testInput, s[1], s[2])
+[3, 1] |> s -> walk(testInput, s[1], s[2])
 
 # ╔═╡ 7838e2f0-3590-11eb-0944-8fb86cce8ee7
 @test getCellAt(testInput, 3, 1) == '.'
@@ -52,30 +57,51 @@ end
 # ╔═╡ 50b98fee-3596-11eb-112e-9900696ce9b9
 @test getCellAt(testInput, 30, 10) == '#'
 
+# ╔═╡ 11bad92c-359d-11eb-11de-5509008873e5
+md"## Part One
+
+Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would you encounter?"
+
+# ╔═╡ 19d479ba-359d-11eb-37f0-65c9ef2c6137
+md"## Part Two
+
+What do you get if you multiply together the number of trees encountered on each of the listed slopes?
+
+- Right 1, down 1.
+- Right 3, down 1. (This is the slope you already checked.)
+- Right 5, down 1.
+- Right 7, down 1.
+- Right 1, down 2."
+
 # ╔═╡ 6e98900e-3597-11eb-3a8c-83f741c63ad1
 puzzleInput = open(f -> read(f, String), "day3-input.txt") |> x->split(strip(x), "\n")
 
 # ╔═╡ 78645d4a-3597-11eb-04d2-37aeb401d9e7
-getWalkTrees(puzzleInput, 3, 1) |> x->findall(c->c == '#', x) |> length
+walk(puzzleInput, 3, 1) |> x -> findall(c -> c == '#', x) |> length
 
 # ╔═╡ b2446314-3597-11eb-05ff-cbad1dc889ff
 begin
 	[[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]] |>
-	slopes->map(s->getWalkTrees(puzzleInput, s[1], s[2]), slopes) |>
-	walks->map(x->findall(c->c == '#', x) |> length, walks) |>
-	trees->prod(trees)
+	slopes -> map(s -> walk(puzzleInput, s[1], s[2]), slopes) |>
+	walks -> map(x-> findall(c->c == '#', x), walks) |>
+	trees -> map(length, trees) |>
+	prod
 end
 
 # ╔═╡ Cell order:
 # ╠═75a3a4b0-3590-11eb-0bf6-775e16dbd22d
-# ╟─67d7fdca-358f-11eb-20a7-fb80acece997
+# ╟─c6bc401e-359c-11eb-1f6e-ad285140b5ff
 # ╠═978f03b0-358f-11eb-3125-2bd1fa5c4e05
 # ╠═ad3c332a-3596-11eb-1514-512617feb224
+# ╟─276dd4ae-359d-11eb-1034-af569084528d
+# ╟─67d7fdca-358f-11eb-20a7-fb80acece997
 # ╠═99e62d1a-359b-11eb-04cc-8ba3d5016eb6
 # ╠═7838e2f0-3590-11eb-0944-8fb86cce8ee7
 # ╠═4a7ed528-3596-11eb-398b-41097e320b14
 # ╠═4d759288-3596-11eb-1fbd-67e9a57fd008
 # ╠═50b98fee-3596-11eb-112e-9900696ce9b9
+# ╟─11bad92c-359d-11eb-11de-5509008873e5
 # ╠═78645d4a-3597-11eb-04d2-37aeb401d9e7
+# ╟─19d479ba-359d-11eb-37f0-65c9ef2c6137
 # ╠═b2446314-3597-11eb-05ff-cbad1dc889ff
 # ╟─6e98900e-3597-11eb-3a8c-83f741c63ad1
