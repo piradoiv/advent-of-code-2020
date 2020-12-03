@@ -7,6 +7,9 @@ using InteractiveUtils
 # ╔═╡ 75a3a4b0-3590-11eb-0bf6-775e16dbd22d
 using Test
 
+# ╔═╡ b36e8302-35a4-11eb-13a5-9bb90c64453e
+include("common.jl")
+
 # ╔═╡ c6bc401e-359c-11eb-1f6e-ad285140b5ff
 md"# Day 3 - Toboggan Trajectory
 Please find the full Advent of Code instructions for this challenge at:    
@@ -82,7 +85,7 @@ What do you get if you multiply together the number of trees encountered on each
 - Right 1, down 2."
 
 # ╔═╡ 6e98900e-3597-11eb-3a8c-83f741c63ad1
-puzzleInput = open(f -> read(f, String), "day3-input.txt") |> x->split(strip(x), "\n")
+puzzleInput = readFileLines("day3-input.txt")
 
 # ╔═╡ abd3616c-359f-11eb-00ed-130f3e2eb233
 treesEncountered(puzzleInput, [3, 1])
@@ -92,6 +95,7 @@ treesEncountered(puzzleInput, [3, 1])
 slopes->map(velocity->treesEncountered(puzzleInput, velocity), slopes) |> prod
 
 # ╔═╡ Cell order:
+# ╠═b36e8302-35a4-11eb-13a5-9bb90c64453e
 # ╠═75a3a4b0-3590-11eb-0bf6-775e16dbd22d
 # ╟─c6bc401e-359c-11eb-1f6e-ad285140b5ff
 # ╠═4f8abf1e-35a3-11eb-1533-55cd039d93f6
