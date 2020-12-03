@@ -13,23 +13,23 @@ Please find the full Advent of Code instructions for this challenge at:
 [https://adventofcode.com/2020/day/3](https://adventofcode.com/2020/day/3)"
 
 # ╔═╡ 978f03b0-358f-11eb-3125-2bd1fa5c4e05
-getCellAt(grid, x, y) = grid[y + 1][(x % length(grid[1])) + 1]
+getCellAt(grid, xy) = grid[xy[2] + 1][(xy[1] % length(grid[1])) + 1]
 
 # ╔═╡ ad3c332a-3596-11eb-1514-512617feb224
-function walk(grid, stepsX, stepsY)
+function walk(grid, velocity)
+	result = ""
 	xy = [0, 0]
-	chars = ""
 	while xy[2] + 1 <= length(grid) - 1
-		xy += [stepsX, stepsY]
-		chars = string(chars, getCellAt(grid, xy[1], xy[2]))
+		xy += velocity
+		result = string(result, getCellAt(grid, xy))
 	end
-	return chars
+	return result
 end
 
 # ╔═╡ 8bf60c5a-359f-11eb-2b4a-836d14382c7d
-treesEncountered(grid, stepsX, stepsY) = walk(grid, stepsX, stepsY) |>
-										 x->findall(c->c == '#', x) |>
-										 length
+treesEncountered(grid, velocity) = walk(grid, velocity) |>
+								   x->findall(c->c == '#', x) |>
+								   length
 
 # ╔═╡ 276dd4ae-359d-11eb-1034-af569084528d
 md"## Tests"
@@ -47,20 +47,17 @@ testInput = split("..##.......
 #...##....#
 .#..#...#.#", "\n")
 
-# ╔═╡ 99e62d1a-359b-11eb-04cc-8ba3d5016eb6
-[3, 1] |> s -> walk(testInput, s[1], s[2])
-
 # ╔═╡ 7838e2f0-3590-11eb-0944-8fb86cce8ee7
-@test getCellAt(testInput, 3, 1) == '.'
+@test getCellAt(testInput, [3, 1]) == '.'
 
 # ╔═╡ 4a7ed528-3596-11eb-398b-41097e320b14
-@test getCellAt(testInput, 24, 8) == '#'
+@test getCellAt(testInput, [24, 8]) == '#'
 
 # ╔═╡ 4d759288-3596-11eb-1fbd-67e9a57fd008
-@test getCellAt(testInput, 27, 9) == '#'
+@test getCellAt(testInput, [27, 9]) == '#'
 
 # ╔═╡ 50b98fee-3596-11eb-112e-9900696ce9b9
-@test getCellAt(testInput, 30, 10) == '#'
+@test getCellAt(testInput, [30, 10]) == '#'
 
 # ╔═╡ 11bad92c-359d-11eb-11de-5509008873e5
 md"## Part One
@@ -82,12 +79,11 @@ What do you get if you multiply together the number of trees encountered on each
 puzzleInput = open(f -> read(f, String), "day3-input.txt") |> x->split(strip(x), "\n")
 
 # ╔═╡ abd3616c-359f-11eb-00ed-130f3e2eb233
-treesEncountered(puzzleInput, 3, 1)
+treesEncountered(puzzleInput, [3, 1])
 
 # ╔═╡ b2446314-3597-11eb-05ff-cbad1dc889ff
 [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]] |>
-slopes->map(s->treesEncountered(puzzleInput, s[1], s[2]), slopes) |>
-prod
+slopes->map(velocity->treesEncountered(puzzleInput, velocity), slopes) |> prod
 
 # ╔═╡ Cell order:
 # ╠═75a3a4b0-3590-11eb-0bf6-775e16dbd22d
@@ -97,7 +93,6 @@ prod
 # ╠═8bf60c5a-359f-11eb-2b4a-836d14382c7d
 # ╟─276dd4ae-359d-11eb-1034-af569084528d
 # ╟─67d7fdca-358f-11eb-20a7-fb80acece997
-# ╠═99e62d1a-359b-11eb-04cc-8ba3d5016eb6
 # ╠═7838e2f0-3590-11eb-0944-8fb86cce8ee7
 # ╠═4a7ed528-3596-11eb-398b-41097e320b14
 # ╠═4d759288-3596-11eb-1fbd-67e9a57fd008
