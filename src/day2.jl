@@ -124,7 +124,8 @@ md"How many passwords are valid according to the new interpretation of the polic
 md"### Result"
 
 # ╔═╡ 202fb894-33bd-11eb-0232-bb0f06888f13
-puzzleInput = open(f -> read(f, String), "day2-input.txt") |> x->split(strip(x), "\n")
+puzzleInput = open(f -> read(f, String), "day2-input.txt") |>
+			  x->split(strip(x), "\n")
 
 # ╔═╡ 3d8e224c-33be-11eb-2ca5-c72ce0c7e25d
 map(validatePassword, puzzleInput) |> x->filter(y->y == true, x) |> count
