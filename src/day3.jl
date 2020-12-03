@@ -12,8 +12,14 @@ md"# Day 3 - Toboggan Trajectory
 Please find the full Advent of Code instructions for this challenge at:    
 [https://adventofcode.com/2020/day/3](https://adventofcode.com/2020/day/3)"
 
+# ╔═╡ 4f8abf1e-35a3-11eb-1533-55cd039d93f6
+struct Position
+	x::Int64
+	y::Int64
+end
+
 # ╔═╡ 978f03b0-358f-11eb-3125-2bd1fa5c4e05
-getCellAt(grid, xy) = grid[xy[2] + 1][(xy[1] % length(grid[1])) + 1]
+getCellAt(grid, pos) = grid[pos.y + 1][(pos.x % length(grid[1])) + 1]
 
 # ╔═╡ ad3c332a-3596-11eb-1514-512617feb224
 function walk(grid, velocity)
@@ -21,7 +27,7 @@ function walk(grid, velocity)
 	xy = [0, 0]
 	while xy[2] + 1 <= length(grid) - 1
 		xy += velocity
-		result = string(result, getCellAt(grid, xy))
+		result = string(result, getCellAt(grid, Position(xy[1], xy[2])))
 	end
 	return result
 end
@@ -48,16 +54,16 @@ testInput = split("..##.......
 .#..#...#.#", "\n")
 
 # ╔═╡ 7838e2f0-3590-11eb-0944-8fb86cce8ee7
-@test getCellAt(testInput, [3, 1]) == '.'
+@test getCellAt(testInput, Position(3, 1)) == '.'
 
 # ╔═╡ 4a7ed528-3596-11eb-398b-41097e320b14
-@test getCellAt(testInput, [24, 8]) == '#'
+@test getCellAt(testInput, Position(24, 8)) == '#'
 
 # ╔═╡ 4d759288-3596-11eb-1fbd-67e9a57fd008
-@test getCellAt(testInput, [27, 9]) == '#'
+@test getCellAt(testInput, Position(27, 9)) == '#'
 
 # ╔═╡ 50b98fee-3596-11eb-112e-9900696ce9b9
-@test getCellAt(testInput, [30, 10]) == '#'
+@test getCellAt(testInput, Position(30, 10)) == '#'
 
 # ╔═╡ 11bad92c-359d-11eb-11de-5509008873e5
 md"## Part One
@@ -88,6 +94,7 @@ slopes->map(velocity->treesEncountered(puzzleInput, velocity), slopes) |> prod
 # ╔═╡ Cell order:
 # ╠═75a3a4b0-3590-11eb-0bf6-775e16dbd22d
 # ╟─c6bc401e-359c-11eb-1f6e-ad285140b5ff
+# ╠═4f8abf1e-35a3-11eb-1533-55cd039d93f6
 # ╠═978f03b0-358f-11eb-3125-2bd1fa5c4e05
 # ╠═ad3c332a-3596-11eb-1514-512617feb224
 # ╠═8bf60c5a-359f-11eb-2b4a-836d14382c7d
