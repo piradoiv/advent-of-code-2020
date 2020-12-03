@@ -85,11 +85,9 @@ puzzleInput = open(f -> read(f, String), "day3-input.txt") |> x->split(strip(x),
 treesEncountered(puzzleInput, 3, 1)
 
 # ╔═╡ b2446314-3597-11eb-05ff-cbad1dc889ff
-begin
-	[[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]] |>
-	slopes->map(s->treesEncountered(puzzleInput, s[1], s[2]), slopes) |>
-	prod
-end
+[[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]] |>
+slopes->map(s->treesEncountered(puzzleInput, s[1], s[2]), slopes) |>
+prod
 
 # ╔═╡ Cell order:
 # ╠═75a3a4b0-3590-11eb-0bf6-775e16dbd22d
