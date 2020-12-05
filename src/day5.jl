@@ -8,10 +8,9 @@ struct BoardingPass
     id::Int64
 end
 
-function decodeBoardingPass(input::String, rows=1:128, columns=1:8)::BoardingPass
-    r = rows
-    c = columns
+getBoardingPassId(row, col) = row * 8 + col
 
+function decodeBoardingPass(input::String, r=1:128, c=1:8)::BoardingPass
     for ch in input
         r = @match ch begin
             'F' => r[1:Int64(ceil(length(r) / 2))]
@@ -26,9 +25,9 @@ function decodeBoardingPass(input::String, rows=1:128, columns=1:8)::BoardingPas
         end
     end
 
-    row = r[1]
-    col = c[1]
-    seat = row * 8 + col
+    row = first(r)
+    col = first(c)
+    seat = getBoardingPassId(row, col)
 
     BoardingPass(row, col, seat)
 end
@@ -37,27 +36,36 @@ end
 @test decodeBoardingPass("FFFBBBFRRR") == BoardingPass(14, 7, 119)
 @test decodeBoardingPass("BBFFBBFRLL") == BoardingPass(102, 4, 820)
 
-# Part One
+# Part One: What is the highest seat ID on a boarding pass?
 puzzleInput =
     open(f -> read(f, String), "input/day5.txt") |>
     x -> split(x, "\n") |>
     x -> map(String, x)
 
-result = map(decodeBoardingPass, puzzleInput)
+partOne(input)::Int64 =
+    map(decodeBoardingPass, input) |>
+    boardingPasses -> map(x -> x.id, boardingPasses) |>
+    maximum
 
-println(map(x -> x.id, result) |> maximum)
+println(partOne(puzzleInput))
+@test partOne(puzzleInput) == 935
 
-# Part Two
-function generateSeats(rows, cols)
+# Part Two: What is the ID of your seat?
+function buildSeats(rows, cols)
     result = []
     for row in rows
         for col in cols
-            push!(result, BoardingPass(row, col, row * 8 + col))
+            push!(result, BoardingPass(row, col, getBoardingPassId(row, col)))
         end
     end
     return result
 end
 
-availableSeats = generateSeats(1:118, 1:7)
-myBoardingPass = filter(x -> x ∉ result, availableSeats) |> pass -> filter(x -> 10 < x.row < 110, pass)[1]
-println(myBoardingPass.id)
+partTwo(input)::BoardingPass =
+    map(decodeBoardingPass, input) |>
+    boardingPasses -> filter(x -> x ∉ boardingPasses, buildSeats(1:120, 1:7)) |>
+    pass -> filter(x -> 10 < x.row < 110, pass) |>
+    first
+
+println(partTwo(puzzleInput))
+@test partTwo(puzzleInput).id == 743
