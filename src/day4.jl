@@ -11,7 +11,9 @@ validPassports(input::String, validator) =
     x -> validPassports(x, validator)
 
 validPassports(passports, validator) =
+    # ["foo:2029 bar:blu\nbaz:129", "foo:2029 bar:blu\nbaz:129"]
     map(x -> validPassport(x, validator), passports) |>
+    # [false, false]
     count
 
 validPassport(input::String, validator) =
@@ -26,7 +28,11 @@ validPassport(input::String, validator) =
     # [["foo", "2029"], ["bar", "blu"], ["baz", "129"]]
     x -> validPassport(x, validator)
 
-validPassport(passport, validator) = map(x -> validator(x), passport) |> count >= 7
+validPassport(passport, validator) =
+    # [["foo", "2029"], ["bar", "blu"], ["baz", "129"]]
+    map(x -> validator(x), passport) |>
+    # [false, false, false]
+    count >= 7
 
 puzzleInput = open(f -> read(f, String), "input/day4.txt")
 
