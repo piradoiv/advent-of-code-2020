@@ -53,6 +53,7 @@ println("Part One: ", validPassports(puzzleInput, partOneValidator))
 
 # Part Two
 partTwoValidator(field) =
+    # This uses Match.jl library: https://juliapackages.com/p/match
     @match field[1] begin
         "byr" => 1920 <= parse(Int64, field[2]) <= 2002
         "iyr" => 2010 <= parse(Int64, field[2]) <= 2020
