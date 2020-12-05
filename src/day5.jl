@@ -50,15 +50,8 @@ println(partOne(puzzleInput))
 @test partOne(puzzleInput) == 935
 
 # Part Two: What is the ID of your seat?
-function buildSeats(rows, cols)
-    result = []
-    for row in rows
-        for col in cols
-            push!(result, BoardingPass(row, col, getBoardingPassId(row, col)))
-        end
-    end
-    return result
-end
+buildSeats(rows, cols) =
+    [BoardingPass(row, col, getBoardingPassId(row, col)) for row in rows, col in cols]
 
 partTwo(input)::BoardingPass =
     map(decodeBoardingPass, input) |>
