@@ -1,4 +1,13 @@
-# Day 4 - Passport Processing
+"""
+Day 4 - Passport Processing
+https://adventofcode.com/2020/day/4
+
+I've documented the pipeline transformations, so if you're new
+in Julia (like me!), it may help you a bit to understand what's
+going on.
+
+Happy coding!
+"""
 
 using Match
 
@@ -40,7 +49,7 @@ puzzleInput = open(f -> read(f, String), "input/day4.txt")
 partOneValidator(field) =
     field[1] in ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 
-validPassports(puzzleInput, partOneValidator)
+println("Part One: ", validPassports(puzzleInput, partOneValidator))
 
 # Part Two
 partTwoValidator(field) =
@@ -62,4 +71,4 @@ partTwoValidator(field) =
         _ => false
     end
 
-validPassports(puzzleInput, partTwoValidator)
+println("Part Two: ", validPassports(puzzleInput, partTwoValidator))
