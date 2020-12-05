@@ -11,7 +11,7 @@ using Test
 using Combinatorics
 
 # ╔═╡ f4d053d4-340f-11eb-0285-b1f852cfc4f5
-include("common.jl")
+include("../common.jl")
 
 # ╔═╡ 10e2b764-3416-11eb-15d5-83cfd13f60cb
 md"# Day 1 - Report Repair
@@ -79,7 +79,7 @@ md"Using the above example again, the three entries that sum to `2020` are `979`
 md"### Result"
 
 # ╔═╡ 202fb894-33bd-11eb-0232-bb0f06888f13
-puzzleInput = open(f -> read(f, String), "day1-input.txt") |> puzzleToNumericArray
+puzzleInput = open(f -> read(f, String), "../input/day1.txt") |> puzzleToNumericArray
 
 # ╔═╡ 2d9467c6-33bd-11eb-255c-15cca08b8489
 findEntriesThatSum(2020, puzzleInput) |> prod
@@ -111,4 +111,4 @@ findEntriesThatSum(2020, puzzleInput, 3) |> prod
 # ╠═c260efae-33eb-11eb-22b5-590a6c3c0df8
 # ╟─dcf00e68-33eb-11eb-1801-9be72f52ccc1
 # ╠═3d8e224c-33be-11eb-2ca5-c72ce0c7e25d
-# ╟─202fb894-33bd-11eb-0232-bb0f06888f13
+# ╠═202fb894-33bd-11eb-0232-bb0f06888f13

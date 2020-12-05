@@ -8,7 +8,7 @@ using InteractiveUtils
 using Test
 
 # ╔═╡ f4d053d4-340f-11eb-0285-b1f852cfc4f5
-include("common.jl")
+include("../common.jl")
 
 # ╔═╡ 10e2b764-3416-11eb-15d5-83cfd13f60cb
 md"# Day 2 - Password Philosophy
@@ -124,7 +124,7 @@ md"How many passwords are valid according to the new interpretation of the polic
 md"### Result"
 
 # ╔═╡ 202fb894-33bd-11eb-0232-bb0f06888f13
-puzzleInput = readFileLines("day2-input.txt")
+puzzleInput = readFileLines("../input/day2.txt")
 
 # ╔═╡ 3d8e224c-33be-11eb-2ca5-c72ce0c7e25d
 map(validatePassword, puzzleInput) |> x->filter(y->y == true, x) |> count
@@ -166,4 +166,4 @@ map(isTobogganPass, puzzleInput) |> x->filter(y->y == true, x) |> count
 # ╟─c94c1762-3567-11eb-1d9f-9b18c758b922
 # ╠═d0438352-3567-11eb-086a-c512f405e8d9
 # ╠═dcf00e68-33eb-11eb-1801-9be72f52ccc1
-# ╠═202fb894-33bd-11eb-0232-bb0f06888f13
+# ╟─202fb894-33bd-11eb-0232-bb0f06888f13
