@@ -15,13 +15,9 @@ validPassports(input::String, validator) =
     # "foo:2029 bar:blu\nbaz:129\n\nfoo:2029 bar:blu\nbaz:129"
     split(input, "\n\n") |>
     # ["foo:2029 bar:blu\nbaz:129", "foo:2029 bar:blu\nbaz:129"] (Substrings)
-    x -> map(p -> string(p), x) |>
+    x -> map(String, x) |>
     # ["foo:2029 bar:blu\nbaz:129", "foo:2029 bar:blu\nbaz:129"] (Strings)
-    x -> validPassports(x, validator)
-
-validPassports(passports, validator) =
-    # ["foo:2029 bar:blu\nbaz:129", "foo:2029 bar:blu\nbaz:129"]
-    map(x -> validPassport(x, validator), passports) |>
+    passports -> map(x -> validPassport(x, validator), passports) |>
     # [false, false]
     count
 
@@ -35,20 +31,13 @@ validPassport(input::String, validator) =
     # ["foo:2029", "bar:blu", "baz:129"]
     x -> map(y -> split(y, ":"), x) |>
     # [["foo", "2029"], ["bar", "blu"], ["baz", "129"]]
-    x -> validPassport(x, validator)
-
-validPassport(passport, validator) =
-    # [["foo", "2029"], ["bar", "blu"], ["baz", "129"]]
-    map(x -> validator(x), passport) |>
+    passport -> map(validator, passport) |>
     # [false, false, false]
     count >= 7
 
-puzzleInput = open(f -> read(f, String), "input/day4.txt")
-
 # Part One
-partOneValidator(field) =
-    field[1] in ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
-
+puzzleInput = open(f -> read(f, String), "input/day4.txt")
+partOneValidator(x) = x[1] in ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 println("Part One: ", validPassports(puzzleInput, partOneValidator))
 
 # Part Two
@@ -67,7 +56,7 @@ partTwoValidator(field) =
             x -> parse(Int64, x) |>
             x -> 59 <= x <= 76
         "hcl" => match(r"^#[0-9|a-f|A-F]{6,6}$", field[2]) != nothing
-        "ecl" => match(r"^(amb|blu|brn|gry|grn|hzl|oth)$", field[2]) != nothing
+        "ecl" => field[2] in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
         "pid" => match(r"^[0-9]{9,9}$", field[2]) != nothing
         _ => false
     end
