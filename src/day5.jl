@@ -1,6 +1,5 @@
 using Test
 using Match
-using Combinatorics
 
 struct BoardingPass
     row::Int64
@@ -8,29 +7,29 @@ struct BoardingPass
     id::Int64
 end
 
-getBoardingPassId(row, col) = row * 8 + col
-
-function decodeBoardingPass(input::String, r=1:128, c=1:8)::BoardingPass
+function decodeBoardingPass(input::String, rows=1:128, cols=1:8)::BoardingPass
     for ch in input
-        r = @match ch begin
-            'F' => r[1:Int64(ceil(length(r) / 2))]
-            'B' => r[Int64(ceil(length(r) / 2)):length(r)]
-            _ => r
-        end
-
-        c = @match ch begin
-            'L' => c[1:Int64(ceil(length(c) / 2))]
-            'R' => c[Int64(ceil(length(c) / 2)):length(c)]
-            _ => c
+        if ch in ['F', 'B']
+            rows = seekSeat(ch, rows)
+        else
+            cols = seekSeat(ch, cols)
         end
     end
 
-    row = first(r)
-    col = first(c)
+    row = first(rows)
+    col = first(cols)
     seat = getBoardingPassId(row, col)
 
     BoardingPass(row, col, seat)
 end
+
+seekSeat(ch, items) = @match ch begin
+    'F' || 'L' => items[1:Int64(ceil(length(items) / 2))]
+    'B' || 'R' => items[Int64(ceil(length(items) / 2)):length(items)]
+    _ => items
+end
+
+getBoardingPassId(row, col) = row * 8 + col
 
 @test decodeBoardingPass("BFFFBBFRRR") == BoardingPass(70, 7, 567)
 @test decodeBoardingPass("FFFBBBFRRR") == BoardingPass(14, 7, 119)
@@ -64,7 +63,7 @@ end
 partTwo(input)::BoardingPass =
     map(decodeBoardingPass, input) |>
     boardingPasses -> filter(x -> x ∉ boardingPasses, buildSeats(1:120, 1:7)) |>
-    pass -> filter(x -> 10 < x.row < 110, pass) |>
+    boardingPasses -> filter(x -> 10 < x.row < 110, boardingPasses) |>
     first
 
 println(partTwo(puzzleInput))
