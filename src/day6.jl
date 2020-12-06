@@ -1,7 +1,8 @@
 puzzleInput =
     open(f -> read(f, String), "input/day6.txt") |>
     strip |>
-    x -> split(x, "\n\n") |> x -> String.(x)
+    x -> split(x, "\n\n") |>
+    x -> String.(x)
 
 sumLengths(arr) = length.(arr) |> sum
 
