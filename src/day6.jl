@@ -5,12 +5,8 @@ puzzleInput =
     x -> String.(x)
 
 sumLengths(arr) = length.(arr) |> sum
-
-partOne(input) =
-    replace.(input, "\n" => "") |> x -> split.(x, "") |> x -> unique.(x) |> sumLengths
-
-partTwo(input) =
-    split.(input, "\n") |> x -> map(y -> intersect(y...), x) |> sumLengths
+partOne(input) = replace.(input, "\n" => "") |> x -> split.(x, "") |> x -> unique.(x) |> sumLengths
+partTwo(input) = split.(input, "\n") |> x -> map(y -> intersect(y...), x) |> sumLengths
 
 println("Part One: ", partOne(puzzleInput))
 println("Part Two: ", partTwo(puzzleInput))
